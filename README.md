@@ -1,7 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/0750b927-c3e5-4ad9-8697-b2a74f3dafe2/deploy-status)](https://app.netlify.com/projects/freelanceros/deploys)
-
-![demo](./assets/demo.gif)
-
 # FreelancerOS 🚀
 
 > A comprehensive freelance management platform built with Next.js, Supabase, and modern web technologies.
@@ -10,6 +6,10 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)](https://supabase.com)
 [![Deploy with Netlify](https://img.shields.io/badge/Deploy%20with-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)](https://netlify.com)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0750b927-c3e5-4ad9-8697-b2a74f3dafe2/deploy-status)](https://app.netlify.com/projects/freelanceros/deploys)
+
+
+![demo](./assets/demo.gif)
 
 ## 🎯 Overview
 
