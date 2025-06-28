@@ -44,20 +44,20 @@
   }
   
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
     --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
     --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;
@@ -87,20 +87,20 @@
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: #000000;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: #333333;
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--accent));
+  background: #555555;
 }
 
 .dark ::-webkit-scrollbar-corner {
-  background: hsl(var(--background));
+  background: #000000;
 }
 
 /* Light mode scrollbar */
@@ -110,20 +110,20 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: #c1c1c1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--accent));
+  background: #a8a8a8;
 }
 
 ::-webkit-scrollbar-corner {
-  background: hsl(var(--background));
+  background: #f1f1f1;
 }
 
 /* Smooth transitions for layout changes */
@@ -133,18 +133,72 @@
 
 /* Focus styles for accessibility */
 .dark *:focus-visible {
-  outline: 2px solid hsl(var(--ring));
+  outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
 *:focus-visible {
-  outline: 2px solid hsl(var(--ring));
+  outline: 2px solid #000000;
   outline-offset: 2px;
 }
 
 /* Ensure proper text contrast in dark mode */
 .dark {
   color-scheme: dark;
+}
+
+/* Dark mode text colors with proper contrast */
+.dark .text-black {
+  color: #ffffff !important;
+}
+
+.dark .text-gray-700 {
+  color: #cbd5e1 !important; /* slate-300 */
+}
+
+.dark .text-gray-600 {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+.dark .text-gray-500 {
+  color: #64748b !important; /* slate-500 */
+}
+
+/* Improve button contrast in dark mode */
+.dark .bg-black {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.dark .border-black {
+  border-color: #ffffff !important;
+}
+
+/* Ensure proper hover states */
+.dark .hover\:bg-gray-800:hover {
+  background-color: #1f2937 !important;
+}
+
+.dark .hover\:text-gray-600:hover {
+  color: #9ca3af !important;
+}
+
+/* Fix any remaining contrast issues */
+.dark .bg-white {
+  background-color: #000000 !important;
+}
+
+.dark .text-white {
+  color: #ffffff !important;
+}
+
+/* Sidebar specific dark mode improvements */
+.dark .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+.dark .hover\:bg-gray-900:hover {
+  background-color: #111827 !important;
 }
 
 /* Animation performance optimizations */
@@ -169,13 +223,21 @@
   }
   
   .dark .sidebar-mobile {
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.1), 0 10px 10px -5px rgba(255, 255, 255, 0.04);
   }
 }
 
 /* Keyboard navigation improvements */
 .focus\:ring-2:focus {
   ring-width: 2px;
+}
+
+.dark .focus\:ring-white:focus {
+  ring-color: #ffffff;
+}
+
+.focus\:ring-black:focus {
+  ring-color: #000000;
 }
 
 /* Ensure consistent spacing and alignment */
@@ -192,6 +254,15 @@
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
+}
+
+/* Ensure proper contrast for all interactive elements */
+.dark button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Notification badge styling */
