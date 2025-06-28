@@ -25,9 +25,7 @@ export async function getProposalById(id: string, userId: string) {
 export async function createProposal(proposal: Omit<Proposal, 'id' | 'created_at' | 'updated_at'>) {
   const { data, error } = await supabase
     .from('proposals')
-    .insert([proposal])
-    .select()
-    .single();
+    .insert([proposal]);
 
   return { data, error };
 }
