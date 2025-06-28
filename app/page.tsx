@@ -4,14 +4,17 @@ import Link from 'next/link';
 import { BriefcaseBusiness, ArrowRight, Users, Clock, FileText, BarChart3, CheckCircle, Star, CreditCard, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import Image from 'next/image';
 
 export default function Home() {
 	return (
 		<div className="min-h-screen bg-white relative">
 			{/* SVG Logos */}
-			<img src="/bolt-logo.svg" alt="Logo" className="absolute top-4 right-4 w-24 h-24 z-50 opacity-20" />
-			<img src="/bolt-logo.svg" alt="Logo" className="absolute bottom-4 right-4 w-24 h-24 z-50 opacity-20" />
+			<a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="absolute top-20 right-4 z-50">
+				<img src="/bolt-logo.svg" alt="Logo" className="w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-90 hover:opacity-100 transition-opacity duration-200" />
+			</a>
+			<a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="absolute bottom-4 right-4 z-50">
+				<img src="/bolt-logo.svg" alt="Logo" className="w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-90 hover:opacity-100 transition-opacity duration-200" />
+			</a>
 			{/* Navigation */}
 			<nav className="container mx-auto px-4 py-6">
 				<div className="flex items-center justify-between">
@@ -41,8 +44,101 @@ export default function Home() {
 			</nav>
 
 			{/* Hero Section */}
-			<section className="py-20 md:py-28">
-				<div className="container mx-auto px-4 text-center">
+			<section className="py-20 md:py-28 relative overflow-hidden">
+				<style jsx>{`
+		@keyframes moveAcross1 {
+			0% { transform: translate(-100px, -50px) rotate(0deg); }
+			25% { transform: translate(200px, 100px) rotate(90deg); }
+			50% { transform: translate(500px, -100px) rotate(180deg); }
+			75% { transform: translate(800px, 150px) rotate(270deg); }
+			100% { transform: translate(1200px, -50px) rotate(360deg); }
+		}
+		@keyframes moveAcross2 {
+			0% { transform: translate(1200px, 200px) rotate(0deg); }
+			25% { transform: translate(800px, -80px) rotate(-90deg); }
+			50% { transform: translate(400px, 180px) rotate(-180deg); }
+			75% { transform: translate(100px, -120px) rotate(-270deg); }
+			100% { transform: translate(-100px, 100px) rotate(-360deg); }
+		}
+		@keyframes moveAcross3 {
+			0% { transform: translate(600px, -100px) rotate(45deg); }
+			25% { transform: translate(-50px, 50px) rotate(135deg); }
+			50% { transform: translate(900px, 200px) rotate(225deg); }
+			75% { transform: translate(200px, -150px) rotate(315deg); }
+			100% { transform: translate(600px, 100px) rotate(405deg); }
+		}
+		@keyframes moveAcross4 {
+			0% { transform: translate(300px, 300px) rotate(30deg); }
+			25% { transform: translate(700px, -50px) rotate(120deg); }
+			50% { transform: translate(-100px, 150px) rotate(210deg); }
+			75% { transform: translate(1000px, 50px) rotate(300deg); }
+			100% { transform: translate(300px, -100px) rotate(390deg); }
+		}
+		@keyframes moveAcross5 {
+			0% { transform: translate(1000px, 50px) rotate(-30deg); }
+			25% { transform: translate(150px, 250px) rotate(-120deg); }
+			50% { transform: translate(750px, -200px) rotate(-210deg); }
+			75% { transform: translate(-50px, 100px) rotate(-300deg); }
+			100% { transform: translate(850px, 200px) rotate(-390deg); }
+		}
+		@keyframes moveAcross6 {
+			0% { transform: translate(0px, 150px) rotate(60deg); }
+			25% { transform: translate(500px, -100px) rotate(150deg); }
+			50% { transform: translate(1100px, 250px) rotate(240deg); }
+			75% { transform: translate(300px, 0px) rotate(330deg); }
+			100% { transform: translate(-150px, 180px) rotate(420deg); }
+		}
+		@keyframes moveAcross7 {
+			0% { transform: translate(800px, -150px) rotate(-60deg); }
+			25% { transform: translate(100px, 180px) rotate(-150deg); }
+			50% { transform: translate(600px, 80px) rotate(-240deg); }
+			75% { transform: translate(1200px, -80px) rotate(-330deg); }
+			100% { transform: translate(200px, 220px) rotate(-420deg); }
+		}
+		@keyframes moveAcross8 {
+			0% { transform: translate(400px, 250px) rotate(15deg); }
+			25% { transform: translate(900px, -120px) rotate(105deg); }
+			50% { transform: translate(50px, 120px) rotate(195deg); }
+			75% { transform: translate(700px, 180px) rotate(285deg); }
+			100% { transform: translate(1100px, -50px) rotate(375deg); }
+		}
+		}
+		.floating-logo-1 { animation: moveAcross1 8s ease-in-out infinite; }
+		.floating-logo-2 { animation: moveAcross2 10s ease-in-out infinite 1s; }
+		.floating-logo-3 { animation: moveAcross3 7s ease-in-out infinite 2s; }
+		.floating-logo-4 { animation: moveAcross4 12s ease-in-out infinite 0.5s; }
+		.floating-logo-5 { animation: moveAcross5 9s ease-in-out infinite 3s; }
+		.floating-logo-6 { animation: moveAcross6 11s ease-in-out infinite 1.5s; }
+		.floating-logo-7 { animation: moveAcross7 6s ease-in-out infinite 4s; }
+		.floating-logo-8 { animation: moveAcross8 8.5s ease-in-out infinite 2.5s; }
+		.floating-logo-9 { animation: moveAcross1 9.5s ease-in-out infinite 3.5s; }
+		.floating-logo-10 { animation: moveAcross2 7.5s ease-in-out infinite 0.8s; }
+		.floating-logo-11 { animation: moveAcross3 10.5s ease-in-out infinite 4.2s; }
+		.floating-logo-12 { animation: moveAcross4 6.8s ease-in-out infinite 1.8s; }
+	`}</style>
+
+				{/* Scattered Floating Logo Background */}
+				<div className="absolute inset-0 pointer-events-none">
+					{/* Top scattered logos */}
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-10 left-10 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-1" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-20 right-20 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-2" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-32 left-1/4 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-3" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-16 right-1/3 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-4" />
+
+					{/* Middle scattered logos */}
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-1/2 left-16 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-5 transform -translate-y-1/2" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-1/2 right-16 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-6 transform -translate-y-1/2" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-1/2 left-1/3 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-7 transform -translate-y-1/2" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute top-1/2 right-1/4 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-8 transform -translate-y-1/2" />
+
+					{/* Bottom scattered logos */}
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute bottom-20 left-20 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-9" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute bottom-32 right-32 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-10" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute bottom-16 left-1/3 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-11" />
+					<img src="/bolt-logo.svg" alt="Logo" className="absolute bottom-28 right-1/5 w-14 h-14 md:w-20 md:h-20 lg:w-28 lg:h-28 opacity-20 floating-logo-12" />
+				</div>
+
+				<div className="container mx-auto px-4 text-center relative z-10">
 					<Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-100 text-sm py-1.5 px-4">
 						Trusted by 10,000+ freelancers worldwide
 					</Badge>
@@ -651,7 +747,7 @@ export default function Home() {
 								<li><Link href="/features" className="text-gray-600 hover:text-black transition-colors">Features</Link></li>
 								<li><Link href="/pricing" className="text-gray-600 hover:text-black transition-colors">Pricing</Link></li>
 								<li><Link href="/testimonials" className="text-gray-600 hover:text-black transition-colors">Testimonials</Link></li>
-								<li><Link href="/integrations" className="text-gray-600 hover:text-black transition-colors">Integrations</Link></li>
+								<li><Link href="#integrations" className="text-gray-600 hover:text-black transition-colors">Integrations</Link></li>
 							</ul>
 						</div>
 
@@ -659,19 +755,19 @@ export default function Home() {
 							<h4 className="text-black font-semibold mb-4">Resources</h4>
 							<ul className="space-y-3">
 								<li><Link href="/blog" className="text-gray-600 hover:text-black transition-colors">Blog</Link></li>
-								<li><Link href="/guides" className="text-gray-600 hover:text-black transition-colors">Guides</Link></li>
-								<li><Link href="/help" className="text-gray-600 hover:text-black transition-colors">Help Center</Link></li>
-								<li><Link href="/api" className="text-gray-600 hover:text-black transition-colors">API Documentation</Link></li>
+								<li><Link href="#guides" className="text-gray-600 hover:text-black transition-colors">Guides</Link></li>
+								<li><Link href="#help" className="text-gray-600 hover:text-black transition-colors">Help Center</Link></li>
+								<li><Link href="#api" className="text-gray-600 hover:text-black transition-colors">API Documentation</Link></li>
 							</ul>
 						</div>
 
 						<div>
 							<h4 className="text-black font-semibold mb-4">Company</h4>
 							<ul className="space-y-3">
-								<li><Link href="/about" className="text-gray-600 hover:text-black transition-colors">About Us</Link></li>
-								<li><Link href="/careers" className="text-gray-600 hover:text-black transition-colors">Careers</Link></li>
-								<li><Link href="/privacy" className="text-gray-600 hover:text-black transition-colors">Privacy Policy</Link></li>
-								<li><Link href="/terms" className="text-gray-600 hover:text-black transition-colors">Terms of Service</Link></li>
+								<li><Link href="#about" className="text-gray-600 hover:text-black transition-colors">About Us</Link></li>
+								<li><Link href="#careers" className="text-gray-600 hover:text-black transition-colors">Careers</Link></li>
+								<li><Link href="#privacy" className="text-gray-600 hover:text-black transition-colors">Privacy Policy</Link></li>
+								<li><Link href="#terms" className="text-gray-600 hover:text-black transition-colors">Terms of Service</Link></li>
 							</ul>
 						</div>
 					</div>

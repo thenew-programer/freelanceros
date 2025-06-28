@@ -53,6 +53,6 @@ export const config = {
 		 * - public folder
 		 * - api routes that handle their own authentication
 		 */
-		'/((?!_next/static|_next/image|favicon.ico|public|api/webhooks).*)',
+		'/((?!_next/static|_next/image|public|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js)$|api/webhooks).*)',
 	],
 };
