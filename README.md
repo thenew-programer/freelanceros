@@ -1,4 +1,6 @@
-![demo](./assets/dem[![Netlify Status](https://api.netlify.com/api/v1/badges/0750b927-c3e5-4ad9-8697-b2a74f3dafe2/deploy-status)](https://app.netlify.com/projects/freelanceros/deploys)o.gif)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0750b927-c3e5-4ad9-8697-b2a74f3dafe2/deploy-status)](https://app.netlify.com/projects/freelanceros/deploys)
+
+![demo](./assets/demo.gif)
 
 # FreelancerOS 🚀
 
