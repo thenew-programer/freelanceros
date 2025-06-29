@@ -6,7 +6,6 @@ export async function middleware(req: NextRequest) {
 	const res = NextResponse.next();
 	const supabase = createMiddlewareClient({ req, res });
 
-	// Check if user is authenticated
 	const {
 		data: { session },
 	} = await supabase.auth.getSession();
