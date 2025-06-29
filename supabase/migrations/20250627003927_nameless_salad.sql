@@ -323,7 +323,7 @@ $$ LANGUAGE plpgsql;
 -- Function to increment usage
 CREATE OR REPLACE FUNCTION increment_usage(
     user_uuid uuid,
-    resource_type text,
+    p_resource_type text,
     increment integer DEFAULT 1
 ) RETURNS void AS $$
 BEGIN
@@ -331,7 +331,7 @@ BEGIN
     SET 
         current_usage = current_usage + increment,
         updated_at = now()
-    WHERE user_id = user_uuid AND resource_type = resource_type;
+    WHERE user_id = user_uuid AND resource_type = p_resource_type;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -358,7 +358,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER track_client_usage_trigger
     AFTER INSERT ON public.clients
@@ -373,7 +373,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER track_proposal_usage_trigger
     AFTER INSERT ON public.proposals
@@ -388,7 +388,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER track_project_usage_trigger
     AFTER INSERT ON public.projects
@@ -403,7 +403,7 @@ BEGIN
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE TRIGGER track_invoice_usage_trigger
     AFTER INSERT ON public.invoices
