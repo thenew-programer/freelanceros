@@ -104,9 +104,9 @@ export function Sidebar({ className, onSignOut, userEmail, subscription }: Sideb
 				/>
 			)}
 
-			{/* Sidebar - Fixed height and no scrolling */}
+			{/* Sidebar - With scrolling capability */}
 			<div className={cn(
-				"bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 transform transition-all duration-300 ease-in-out overflow-y-hidden relative",
+				"bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 transform transition-all duration-300 ease-in-out relative",
 				// Mobile behavior - keep fixed
 				"fixed inset-y-0 left-0 z-50 w-80",
 				isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
@@ -115,11 +115,10 @@ export function Sidebar({ className, onSignOut, userEmail, subscription }: Sideb
 				isCollapsed ? "lg:w-16" : "lg:w-64",
 				className
 			)}>
-				{/* Fixed container with proper height boundaries and NO SCROLLING */}
-				<div className="flex flex-col h-full">
-					{/* Logo */}
+				{/* Scrollable container */}
+				<div className="flex flex-col h-full overflow-hidden">
+					{/* Logo - Fixed at top */}
 					<div className={cn(
-
 						"flex items-center border-b border-gray-200 dark:border-gray-800 transition-all duration-300 flex-shrink-0 relative",
 						isCollapsed ? "lg:justify-center lg:p-4" : "lg:p-6",
 						"p-6" // Mobile always full padding
@@ -147,13 +146,13 @@ export function Sidebar({ className, onSignOut, userEmail, subscription }: Sideb
 					</div>
 
 					{/* Desktop toggle button - positioned on the border */}
-					<div className="hidden lg:block absolute left-0 top-[73px] w-full">
+					<div className="hidden lg:block absolute left-0 top-[73px] w-full z-20">
 						<div className="relative">
 							<Button
 								variant="ghost"
 								size="sm"
 								onClick={toggleSidebar}
-								className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-all duration-300 rounded-full w-6 h-6 p-0 shadow-sm z-10"
+								className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-all duration-300 rounded-full w-6 h-6 p-0 shadow-sm"
 								title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
 							>
 								{isCollapsed ? (
@@ -165,30 +164,62 @@ export function Sidebar({ className, onSignOut, userEmail, subscription }: Sideb
 						</div>
 					</div>
 
-					{/* Navigation - At the top, no extra margin */}
-					<nav className={cn(
-						"px-4 pt-6 pb-4 space-y-2 transition-all duration-300 flex-shrink-0",
-						isCollapsed && "lg:px-2"
-					)}>
-						{navigation.map((item) => {
-							const isActive = pathname === item.href;
-							return (
+					{/* Scrollable content area */}
+					<div className="flex-1 overflow-y-auto overflow-x-hidden">
+						<div className="flex flex-col min-h-full">
+							{/* Navigation */}
+							<nav className={cn(
+								"px-4 pt-6 pb-4 space-y-2 transition-all duration-300",
+								isCollapsed && "lg:px-2"
+							)}>
+								{navigation.map((item) => {
+									const isActive = pathname === item.href;
+									return (
+										<Link
+											key={item.name}
+											href={item.href}
+											onClick={() => setIsMobileOpen(false)}
+											className={cn(
+												"flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group",
+												isActive
+													? "bg-black dark:bg-white text-white dark:text-black"
+													: "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-900",
+												isCollapsed && "lg:justify-center lg:px-2"
+											)}
+											title={isCollapsed ? item.name : undefined}
+										>
+											<item.icon className={cn(
+												"h-5 w-5 flex-shrink-0",
+												isActive
+													? "text-white dark:text-black"
+													: "text-gray-700 dark:text-slate-300"
+											)} />
+											<span className={cn(
+												"transition-all duration-300",
+												isCollapsed && "lg:hidden"
+											)}>
+												{item.name}
+											</span>
+										</Link>
+									);
+								})}
+
+								{/* Subscription Link */}
 								<Link
-									key={item.name}
-									href={item.href}
+									href="/settings/billing"
 									onClick={() => setIsMobileOpen(false)}
 									className={cn(
 										"flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group",
-										isActive
+										pathname === "/settings/billing"
 											? "bg-black dark:bg-white text-white dark:text-black"
 											: "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-900",
 										isCollapsed && "lg:justify-center lg:px-2"
 									)}
-									title={isCollapsed ? item.name : undefined}
+									title={isCollapsed ? "Subscription" : undefined}
 								>
-									<item.icon className={cn(
+									<CreditCard className={cn(
 										"h-5 w-5 flex-shrink-0",
-										isActive
+										pathname === "/settings/billing"
 											? "text-white dark:text-black"
 											: "text-gray-700 dark:text-slate-300"
 									)} />
@@ -196,134 +227,106 @@ export function Sidebar({ className, onSignOut, userEmail, subscription }: Sideb
 										"transition-all duration-300",
 										isCollapsed && "lg:hidden"
 									)}>
-										{item.name}
+										Subscription
 									</span>
 								</Link>
-							);
-						})}
 
-						{/* Subscription Link */}
-						<Link
-							href="/settings/billing"
-							onClick={() => setIsMobileOpen(false)}
-							className={cn(
-								"flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group",
-								pathname === "/settings/billing"
-									? "bg-black dark:bg-white text-white dark:text-black"
-									: "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-900",
-								isCollapsed && "lg:justify-center lg:px-2"
-							)}
-							title={isCollapsed ? "Subscription" : undefined}
-						>
-							<CreditCard className={cn(
-								"h-5 w-5 flex-shrink-0",
-								pathname === "/settings/billing"
-									? "text-white dark:text-black"
-									: "text-gray-700 dark:text-slate-300"
-							)} />
-							<span className={cn(
-								"transition-all duration-300",
-								isCollapsed && "lg:hidden"
-							)}>
-								Subscription
-							</span>
-						</Link>
+								{/* Pricing Link */}
+								<Link
+									href="/pricing"
+									onClick={() => setIsMobileOpen(false)}
+									className={cn(
+										"flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group",
+										pathname === "/pricing"
+											? "bg-black dark:bg-white text-white dark:text-black"
+											: "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-900",
+										isCollapsed && "lg:justify-center lg:px-2"
+									)}
+									title={isCollapsed ? "Pricing" : undefined}
+								>
+									<Zap className={cn(
+										"h-5 w-5 flex-shrink-0",
+										pathname === "/pricing"
+											? "text-white dark:text-black"
+											: "text-gray-700 dark:text-slate-300"
+									)} />
+									<span className={cn(
+										"transition-all duration-300",
+										isCollapsed && "lg:hidden"
+									)}>
+										Pricing
+									</span>
+								</Link>
+							</nav>
 
-						{/* Pricing Link */}
-						<Link
-							href="/pricing"
-							onClick={() => setIsMobileOpen(false)}
-							className={cn(
-								"flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group",
-								pathname === "/pricing"
-									? "bg-black dark:bg-white text-white dark:text-black"
-									: "text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-gray-900",
-								isCollapsed && "lg:justify-center lg:px-2"
-							)}
-							title={isCollapsed ? "Pricing" : undefined}
-						>
-							<Zap className={cn(
-								"h-5 w-5 flex-shrink-0",
-								pathname === "/pricing"
-									? "text-white dark:text-black"
-									: "text-gray-700 dark:text-slate-300"
-							)} />
-							<span className={cn(
-								"transition-all duration-300",
-								isCollapsed && "lg:hidden"
-							)}>
-								Pricing
-							</span>
-						</Link>
-					</nav>
+							{/* Spacer to push user section to bottom */}
+							<div className="flex-1"></div>
 
-					{/* Spacer to push user section to bottom */}
-					<div className="flex-1"></div>
-
-					{/* User Section - Fixed at bottom, NO SCROLLING */}
-					<div className={cn(
-						"p-4 border-t border-gray-200 dark:border-gray-800 space-y-3 transition-all duration-300 flex-shrink-0",
-						isCollapsed && "lg:px-2"
-					)}>
-						{/* User Info - Avatar as link to profile */}
-						<Link
-							href="/profile"
-							onClick={() => setIsMobileOpen(false)}
-							className={cn(
-								"flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300",
-								isCollapsed && "lg:justify-center lg:px-2"
-							)}
-							title={isCollapsed ? "Profile" : undefined}
-						>
-							<div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
-								{profile?.avatar_url ? (
-									<img
-										src={profile.avatar_url}
-										alt={profile.full_name || 'Profile'}
-										className="w-full h-full object-cover"
-									/>
-								) : (
-									<User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-								)}
-							</div>
+							{/* User Section - Sticky at bottom */}
 							<div className={cn(
-								"flex-1 min-w-0 transition-all duration-300",
-								isCollapsed && "lg:hidden"
+								"p-4 border-t border-gray-200 dark:border-gray-800 space-y-3 transition-all duration-300 bg-white dark:bg-black",
+								isCollapsed && "lg:px-2"
 							)}>
-								<p className="text-sm font-medium text-black dark:text-white truncate">
-									{profile?.full_name || userEmail || 'User'}
-								</p>
-								<p className="text-xs text-gray-500 dark:text-gray-400">
-									{profile?.title || 'Freelancer'}
-								</p>
-							</div>
-						</Link>
+								{/* User Info - Avatar as link to profile */}
+								<Link
+									href="/profile"
+									onClick={() => setIsMobileOpen(false)}
+									className={cn(
+										"flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300",
+										isCollapsed && "lg:justify-center lg:px-2"
+									)}
+									title={isCollapsed ? "Profile" : undefined}
+								>
+									<div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
+										{profile?.avatar_url ? (
+											<img
+												src={profile.avatar_url}
+												alt={profile.full_name || 'Profile'}
+												className="w-full h-full object-cover"
+											/>
+										) : (
+											<User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+										)}
+									</div>
+									<div className={cn(
+										"flex-1 min-w-0 transition-all duration-300",
+										isCollapsed && "lg:hidden"
+									)}>
+										<p className="text-sm font-medium text-black dark:text-white truncate">
+											{profile?.full_name || userEmail || 'User'}
+										</p>
+										<p className="text-xs text-gray-500 dark:text-gray-400">
+											{profile?.title || 'Freelancer'}
+										</p>
+									</div>
+								</Link>
 
-						<div className={cn(
-							"space-y-1",
-							isCollapsed && "lg:flex lg:flex-col lg:items-center lg:space-y-2"
-						)}>
-
-							{/* Sign Out */}
-							<Button
-								variant="ghost"
-								onClick={onSignOut}
-								className={cn(
-									"font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300",
-									isCollapsed
-										? "lg:w-8 lg:h-8 lg:p-0 lg:justify-center"
-										: "w-full justify-start gap-3 px-3 py-2"
-								)}
-								title={isCollapsed ? "Sign Out" : undefined}
-							>
-								<LogOut className="h-4 w-4 flex-shrink-0 text-red-600 dark:text-red-400" />
-								<span className={cn(
-									"transition-all duration-300",
-									isCollapsed && "lg:hidden"
+								<div className={cn(
+									"space-y-1",
+									isCollapsed && "lg:flex lg:flex-col lg:items-center lg:space-y-2"
 								)}>
-									Sign Out
-								</span>
-							</Button>
+									{/* Sign Out */}
+									<Button
+										variant="ghost"
+										onClick={onSignOut}
+										className={cn(
+											"font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300",
+											isCollapsed
+												? "lg:w-8 lg:h-8 lg:p-0 lg:justify-center"
+												: "w-full justify-start gap-3 px-3 py-2"
+										)}
+										title={isCollapsed ? "Sign Out" : undefined}
+									>
+										<LogOut className="h-4 w-4 flex-shrink-0 text-red-600 dark:text-red-400" />
+										<span className={cn(
+											"transition-all duration-300",
+											isCollapsed && "lg:hidden"
+										)}>
+											Sign Out
+										</span>
+									</Button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
